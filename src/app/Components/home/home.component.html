@@ -1,0 +1,30 @@
+<div>
+  <h1> Our store Info:</h1>
+  <!-- Interpolation -->
+  <!-- Safe navigation Operator -->
+  <h2>Store Name: {{storeInfo?.name}}</h2>
+  <!-- <img src="{{storeInfo.imgURL}}" alt="image"> -->
+  <!-- Property Binding -->
+  <img [hidden]="!isImgShown" [src]="storeInfo.imgURL" alt="logo">
+
+  <!-- Structural Directives -->
+  <!-- <img *ngIf="isImgShown" [src]="storeInfo.imgURL" alt="logo"> -->
+
+  <!-- Event Binding -->
+  <button type="button" class="btn btn-primary d-block" (click)="toggleImg()"> Toggle Image</button>
+
+  <h2>Brancches:</h2>
+
+  <ul>
+    <li *ngFor="let item of storeInfo.branches">
+      {{item}}
+    </li>
+  </ul>
+  <hr>
+  <div class="mb-3">
+    <label for="" class="form-label">Enter your Feedback:</label>
+    <input type="text" [(ngModel)]="custFeedback"
+      class="form-control" name="" id=""  placeholder="Feedback">
+      <small>Entered Feedback: {{custFeedback}}</small>
+  </div>
+</div>

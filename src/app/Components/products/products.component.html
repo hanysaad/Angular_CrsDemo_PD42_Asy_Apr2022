@@ -1,0 +1,49 @@
+<!-- <h2>
+  Time now: {{todayDate | date: 'mediumTime'}}
+</h2> -->
+<table class="table my-3">
+  <thead class="bg-dark text-light">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Image</th>
+      <th scope="col">Price in USD</th>
+      <th scope="col">Price in EGP</th>
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- <tr *ngFor="let prd of prdList" [class.bg-warning]="prd.quantity==0"> -->
+    <!-- <tr [hidden]="prd.quantity==0" *ngFor="let prd of prdList; let i=index; trackBy: productsTrackBy" [style.background-color]="(prd.quantity==0)? 'lightyellow':'lightgray'"> -->
+    <ng-container *ngFor="let prd of prdList; let i=index; trackBy: productsTrackBy">
+      <!-- <tr *ngIf="prd.quantity!=0" [style.background-color]="(prd.quantity==0)? 'lightyellow':'lightgray'"> -->
+      <!-- <tr [style.background-color]="(prd.quantity==0)? 'lightyellow':'lightgray'"> -->
+      <tr [ngStyle]="{'background-color':prd.quantity==0? 'lightyellow':'lightgray', 'color':prd.quantity==0? 'red':'darkblue'}">
+
+        <td>
+          <!-- {{prd.id}} -->
+          {{i+1}}
+        </td>
+        <td>{{prd.name}}</td>
+        <!-- <td><img LightBox highlightColor="yellow" [src]="prd.imgURL" alt="prd"></td> -->
+        <td><img LightBox="yellow" defaultColor="white" [src]="prd.imgURL" alt="prd"></td>
+        <td>{{prd.price | currency: 'USD' : 'code'}}</td>
+        <td>{{prd.price | USDtoEGP:20 | currency: 'EGP'}}</td>
+        <td>
+          <!--
+            <div *ngIf="prd.quantity==0">Out of stock</div>
+          <div *ngIf="prd.quantity!=0">{{prd.quantity}}</div>
+        -->
+          <!-- <div *ngIf="prd.quantity!=0; else outOfStock">{{prd.quantity}}</div>
+          <ng-template #outOfStock>Out of stock</ng-template> -->
+          <ng-container [ngSwitch]="prd.quantity">
+            <div *ngSwitchCase="0">Out of Stock</div>
+            <div *ngSwitchCase="1">Last Item</div>
+            <div *ngSwitchCase="2">Last 2 items</div>
+            <div *ngSwitchDefault>{{prd.quantity}}</div>
+          </ng-container>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
