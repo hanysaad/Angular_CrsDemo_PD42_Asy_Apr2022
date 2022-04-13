@@ -11,7 +11,8 @@ import { SiderbarComponent } from './Components/siderbar/siderbar.component';
 import { HomeComponent } from './Components/home/home.component';
 import { ProductsComponent } from './Components/products/products.component';
 import { LightBoxDirective } from './Directives/light-box.directive';
-import { USDtoEGPPipe } from './Components/Pipes/usdto-egp.pipe';
+import { USDtoEGPPipe } from './Pipes/usdto-egp.pipe';
+import { OrderMasterComponent } from './Components/order-master/order-master.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { USDtoEGPPipe } from './Components/Pipes/usdto-egp.pipe';
     HomeComponent,
     ProductsComponent,
     LightBoxDirective,
-    USDtoEGPPipe
+    USDtoEGPPipe,
+    OrderMasterComponent
   ],
   imports: [
     BrowserModule,

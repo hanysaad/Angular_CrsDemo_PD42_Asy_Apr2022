@@ -10,12 +10,13 @@
       <th scope="col">Price in USD</th>
       <th scope="col">Price in EGP</th>
       <th scope="col">Quantity</th>
-    </tr>
+      <th scope="col">Items count</th>
+      <th scope="col">Add to Cart</th>
   </thead>
   <tbody>
     <!-- <tr *ngFor="let prd of prdList" [class.bg-warning]="prd.quantity==0"> -->
     <!-- <tr [hidden]="prd.quantity==0" *ngFor="let prd of prdList; let i=index; trackBy: productsTrackBy" [style.background-color]="(prd.quantity==0)? 'lightyellow':'lightgray'"> -->
-    <ng-container *ngFor="let prd of prdList; let i=index; trackBy: productsTrackBy">
+    <ng-container *ngFor="let prd of prdListOfCat; let i=index; trackBy: productsTrackBy">
       <!-- <tr *ngIf="prd.quantity!=0" [style.background-color]="(prd.quantity==0)? 'lightyellow':'lightgray'"> -->
       <!-- <tr [style.background-color]="(prd.quantity==0)? 'lightyellow':'lightgray'"> -->
       <tr [ngStyle]="{'background-color':prd.quantity==0? 'lightyellow':'lightgray', 'color':prd.quantity==0? 'red':'darkblue'}">
@@ -43,7 +44,15 @@
             <div *ngSwitchDefault>{{prd.quantity}}</div>
           </ng-container>
         </td>
+        <td><input #itemsCount type="number" class="form-control"></td>
+        <td><button type="button" class="btn btn-secondary" (click)="updateOrderTotalPrice(+itemsCount.value,prd.price)">Add to cart</button></td>
       </tr>
     </ng-container>
   </tbody>
 </table>
+<div class="bg-danger">
+  <!-- <h3>[For Test] To be removed:
+    <br>
+    Total price in nested component: {{orderTotalPrice}}
+  </h3> -->
+</div>

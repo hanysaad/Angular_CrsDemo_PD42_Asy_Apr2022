@@ -1,0 +1,30 @@
+<h1>Make a new order</h1>
+<div class="mb-3">
+  <label for="" class="form-label">Client name</label>
+  <input #clientName type="text"
+    class="form-control" name="" id=""  placeholder="Your name">
+  <small id="helpId" class="form-text text-muted">Help text</small>
+</div>
+
+<div class="mb-3">
+  <label for="" class="form-label">Select Category</label>
+  <select class="form-control" name="cat" id="CatSel" title="catgory"
+      [(ngModel)]="selectedCatID">
+    <option value="0">Select All</option>
+    <option *ngFor="let cat of catList" [value]="cat.id">{{cat.name}}</option>
+  </select>
+</div>
+<div class="bg-danger">
+  <!-- <h3>[For Test] To be removed:
+    Selected Cat ID in Parent: {{selectedCatID}}
+  </h3> -->
+</div>
+<hr>
+<div class="bg-warning">
+  <app-products [receivedSelCatID]="selectedCatID"
+                (onTotalPriceChanged)="updateTotalPrice($event)"></app-products>
+</div>
+<hr>
+<h2>
+  Order Total Price: {{receivedOrderTotalPrice | currency}}
+</h2>
