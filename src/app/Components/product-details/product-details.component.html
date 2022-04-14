@@ -1,0 +1,16 @@
+<div class="card">
+  <img [src]="currPrd?.imgURL" class="card-img-top" width="150px" height="100px" alt="product">
+  <div class="card-body">
+    <h5 class="card-title">Product Name: {{currPrd?.name}}</h5>
+    <div class="card-text">
+      <h6>Product Price: {{currPrd?.price}}</h6>
+      <h6>Product Quantity: {{currPrd?.quantity}}</h6>
+    </div>
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+      <button [disabled]="isFirstItem()" type="button" class="btn btn-success" (click)="prevProduct()">Previous</button>
+      <button type="button" class="btn btn-warning" (click)="goBack()">Back</button>
+      <button [disabled]="islastItem()" type="button" class="btn btn-success" (click)="nextProduct()">Next</button>
+    </div>
+
+  </div>
+</div>

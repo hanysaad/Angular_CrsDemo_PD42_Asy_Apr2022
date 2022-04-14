@@ -1,42 +1,40 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { IProduct } from 'src/app/Models/iproduct';
+import { ProductsService } from 'src/app/Services/products.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
+  // ,providers:[ProductsService]
 })
 export class ProductsComponent implements OnInit, OnChanges {
-  private prdList: IProduct[];
+  // private prdList: IProduct[];
   prdListOfCat:IProduct[]=[];
   @Input() receivedSelCatID:number=0;
   orderTotalPrice:number=0;
   @Output() onTotalPriceChanged: EventEmitter<number>;
   // todayDate: Date = new Date();
-  constructor() {
+  constructor(private prdService:ProductsService
+            , private router:Router) {
     this.onTotalPriceChanged= new EventEmitter<number>();
-    this.prdList=[
-      {id:1, name: 'Lenovo X230 laptop', price: 100, quantity:10, imgURL:'https://fakeimg.pl/150x100', catID:1},
-      {id:5, name: 'MacBook Pro', price: 200, quantity:0, imgURL:'https://fakeimg.pl/150x100', catID:1},
-      {id:10, name: 'Samsung Tab 3', price: 300, quantity:1, imgURL:'https://fakeimg.pl/150x100', catID:2},
-      {id:12, name: 'IPad', price: 400, quantity:2, imgURL:'https://fakeimg.pl/150x100', catID:2},
-      {id:15, name: 'Samsung S22 Ultra', price: 10500, quantity:10, imgURL:'https://fakeimg.pl/150x100', catID:3},
-      {id:17, name: 'Iphone 13 pro', price: 345678, quantity:0, imgURL:'https://fakeimg.pl/150x100', catID:3}
 
-    ];
    }
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.receivedSelCatID);
-    if (this.receivedSelCatID==0)
-    {
-      this.prdListOfCat=this.prdList;
-    }
-    else
-      this.prdListOfCat=this.prdList.filter(prd=> prd.catID==this.receivedSelCatID);
+    this.prdListOfCat=this.prdService.getProductsByCateogryID(this.receivedSelCatID);
+    // if (this.receivedSelCatID==0)
+    // {
+    //   this.prdListOfCat=this.prdList;
+    // }
+    // else
+    //   this.prdListOfCat=this.prdList.filter(prd=> prd.catID==this.receivedSelCatID);
   }
 
   ngOnInit(): void {
+    this.prdListOfCat=this.prdService.getProductsByCateogryID(this.receivedSelCatID);
   }
 
   productsTrackBy(index: number, item: IProduct)
@@ -49,6 +47,11 @@ export class ProductsComponent implements OnInit, OnChanges {
     this.orderTotalPrice+= (itemsCount*price);
     //Emit Event
     this.onTotalPriceChanged.emit(this.orderTotalPrice);
+  }
+
+  openProductDetails(prdID:number)
+  {
+    this.router.navigate(['/Products',prdID]);
   }
 
 }

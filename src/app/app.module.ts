@@ -13,6 +13,10 @@ import { ProductsComponent } from './Components/products/products.component';
 import { LightBoxDirective } from './Directives/light-box.directive';
 import { USDtoEGPPipe } from './Pipes/usdto-egp.pipe';
 import { OrderMasterComponent } from './Components/order-master/order-master.component';
+import { ProductsService } from './Services/products.service';
+import { NotFoundComponent } from './Components/not-found/not-found.component';
+import { MainLayoutComponent } from './Components/main-layout/main-layout.component';
+import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 
 @NgModule({
   declarations: [
@@ -24,14 +28,19 @@ import { OrderMasterComponent } from './Components/order-master/order-master.com
     ProductsComponent,
     LightBoxDirective,
     USDtoEGPPipe,
-    OrderMasterComponent
+    OrderMasterComponent,
+    NotFoundComponent,
+    MainLayoutComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    // ProductsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

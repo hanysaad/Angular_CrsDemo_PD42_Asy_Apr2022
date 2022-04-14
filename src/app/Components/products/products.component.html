@@ -10,6 +10,7 @@
       <th scope="col">Price in USD</th>
       <th scope="col">Price in EGP</th>
       <th scope="col">Quantity</th>
+      <th scope="col">Details</th>
       <th scope="col">Items count</th>
       <th scope="col">Add to Cart</th>
   </thead>
@@ -44,6 +45,8 @@
             <div *ngSwitchDefault>{{prd.quantity}}</div>
           </ng-container>
         </td>
+        <!-- <td><button type="button" class="btn btn-secondary" (click)="openProductDetails(prd.id)">Details</button></td> -->
+        <td><a name="" id="" class="btn btn-primary"  role="button" [routerLink]="['/Products', prd.id]">Details</a></td>
         <td><input #itemsCount type="number" class="form-control"></td>
         <td><button type="button" class="btn btn-secondary" (click)="updateOrderTotalPrice(+itemsCount.value,prd.price)">Add to cart</button></td>
       </tr>
