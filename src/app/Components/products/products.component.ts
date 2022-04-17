@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { IProduct } from 'src/app/Models/iproduct';
+import { ProductsAPIService } from 'src/app/Services/products-api.service';
 import { ProductsService } from 'src/app/Services/products.service';
 
 @Component({
@@ -16,7 +17,9 @@ export class ProductsComponent implements OnInit, OnChanges {
   orderTotalPrice:number=0;
   @Output() onTotalPriceChanged: EventEmitter<number>;
   // todayDate: Date = new Date();
-  constructor(private prdService:ProductsService
+  constructor(
+            // private prdService:ProductsService
+            private prdAPIService: ProductsAPIService
             , private router:Router) {
     this.onTotalPriceChanged= new EventEmitter<number>();
 
@@ -24,7 +27,11 @@ export class ProductsComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.receivedSelCatID);
-    this.prdListOfCat=this.prdService.getProductsByCateogryID(this.receivedSelCatID);
+    this.prdAPIService.getProductsByCatID(this.receivedSelCatID).subscribe(prdList=>{
+      this.prdListOfCat=prdList;
+    });
+
+    // this.prdListOfCat=this.prdService.getProductsByCateogryID(this.receivedSelCatID);
     // if (this.receivedSelCatID==0)
     // {
     //   this.prdListOfCat=this.prdList;
@@ -34,7 +41,10 @@ export class ProductsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.prdListOfCat=this.prdService.getProductsByCateogryID(this.receivedSelCatID);
+    // this.prdListOfCat=this.prdService.getProductsByCateogryID(this.receivedSelCatID);
+    this.prdAPIService.getAllProducts().subscribe(prdList=>{
+      this.prdListOfCat=prdList;
+    });
   }
 
   productsTrackBy(index: number, item: IProduct)

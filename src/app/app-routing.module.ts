@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddProductComponent } from './Components/add-product/add-product.component';
 import { HomeComponent } from './Components/home/home.component';
 import { MainLayoutComponent } from './Components/main-layout/main-layout.component';
 import { NotFoundComponent } from './Components/not-found/not-found.component';
@@ -15,6 +16,8 @@ const routes: Routes = [
     {path:'Home', component:HomeComponent},
     {path:'Products', component:ProductsComponent},
     {path:'Products/:pid', component:ProductDetailsComponent},
+    {path:'NewProduct', component:AddProductComponent},
+    {path:'EditProduct/:pID', component:AddProductComponent},
     {path:'Order', component:OrderMasterComponent},
   ]},
   //Wild-card path

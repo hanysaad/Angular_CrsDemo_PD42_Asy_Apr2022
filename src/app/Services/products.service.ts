@@ -39,9 +39,9 @@ export class ProductsService {
     this.prdList.push(prd);
   }
 
-  getPrdIDsList(): number[]
-  {
-    return this.prdList.map(prd=>prd.id);
-  }
+  // getPrdIDsList(): number[]
+  // {
+  //   // return this.prdList.map(prd=>prd.id);
+  // }
 
 }
