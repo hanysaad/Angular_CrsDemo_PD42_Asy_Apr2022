@@ -1,0 +1,92 @@
+<form class="m-3" [formGroup]="userRegisterFormGroup" (ngSubmit)="register()">
+  <div class="mb-3">
+    <label for="fName" class="form-label">Full Name</label>
+    <input type="text" formControlName="name" class="form-control" name="fName" id="fName" [class.is-valid]="name.valid"
+      [class.is-invalid]="name.invalid && name.touched">
+    <div [hidden]="name.valid || name.untouched">
+      <small *ngIf="name.errors?.['required']" id="helpId" class="form-text text-muted d-block">User Name is
+        Required</small>
+      <small *ngIf="name.errors?.['minlength']" id="helpId2" class="form-text text-muted d-block">User Name must be 3
+        letters at least</small>
+      <small *ngIf="name.errors?.['forbiddenName']" id="helpId3" class="form-text text-muted d-block">User name can't be
+        {{name.errors?.['forbiddenName']?.value}}</small>
+    </div>
+
+  </div>
+
+  <div class="mb-3">
+    <label for="uEmail" class="form-label">Email</label>
+    <input type="Email" formControlName="email" class="form-control" name="uEmail" id="uEmail" placeholder="">
+  </div>
+
+  <div formGroupName="address">
+    <div class="mb-3">
+      <label for="uStreet" class="form-label">Street</label>
+      <input type="text" formControlName="street" class="form-control" name="uStreet" id="uStreet" placeholder="">
+    </div>
+
+    <div class="mb-3">
+      <label for="postCode" class="form-label">Postal Code</label>
+      <input type="text" formControlName="postalCode" class="form-control" name="postCode" id="postCode" placeholder="">
+    </div>
+  </div>
+
+  <div formArrayName="mobileNo">
+    <div class="mb-3" *ngFor="let mobile of mobileNoArr.controls; let i=index">
+      <label for="uMobile + {{i}}" class="form-label">Mobile No. {{i+1}}</label>
+      <input type="text" [formControlName]="i" class="form-control" name="uMob + {{i}}" id="uMobile + {{i}}"
+        placeholder="">
+    </div>
+    <button type="button" class="btn btn-secondary" (click)="addMobile()">+</button>
+  </div>
+
+
+  <div class="mb-3">
+    <label class="form-label">How did you find us?</label>
+    <div class="btn-group" role="group">
+      <input type="radio" formControlName="reachedBy" value="FB" (change)="updateReachedOtherValidaiton()"
+        class="btn-check" name="reachedBy" id="fb" autocomplete="off">
+      <label class="btn btn-outline-primary" for="fb">Facebook</label>
+
+      <input type="radio" formControlName="reachedBy" value="LinkedIn" (change)="updateReachedOtherValidaiton()"
+        class="btn-check" name="reachedBy" id="LinkedIn" autocomplete="off">
+      <label class="btn btn-outline-primary" for="LinkedIn">LinkedIn</label>
+
+      <input type="radio" formControlName="reachedBy" value="Other" (change)="updateReachedOtherValidaiton()"
+        class="btn-check" name="reachedBy" id="other" autocomplete="off">
+      <label class="btn btn-outline-primary" for="other">Other</label>
+    </div>
+  </div>
+
+  <div class="mb-3" [hidden]="reachedBy.value!='Other'">
+    <label for="reachedByOther" class="form-label">Please specify other:</label>
+    <input type="text" formControlName="reachedByOther" class="form-control" name="reachedByOther" id="reachedByOther"
+      placeholder="">
+  </div>
+
+  <div class="mb-3">
+    <label for="uPass" class="form-label">Password</label>
+    <input type="password" formControlName="password" class="form-control" name="uPass" id="uPass" placeholder="">
+  </div>
+
+  <div class="mb-3">
+    <label for="uPassConfirm" class="form-label">Confirm Password</label>
+    <input type="password" formControlName="confirmPassword" class="form-control" name="uPassConfirm" id="uPassConfirm"
+      placeholder="">
+  </div>
+
+  <div *ngIf="userRegisterFormGroup.errors?.['passwordMismatch'] && (confirmPassword.touched || password.touched)"
+    class="cross-validation-error-message alert alert-danger">
+    Password and confirm password don't match.
+  </div>
+
+  <button [disabled]="userRegisterFormGroup.invalid" type="submit" class="btn btn-success">Submit</button>
+</form>
+<hr>
+<div class="bg-warning">
+  <h4>
+    <div>[For Test] To be removed:</div>
+    <div>{{userRegisterFormGroup.value | json}}</div>
+    <div>{{reachedBy.value}}</div>
+  </h4>
+</div>

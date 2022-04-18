@@ -7,6 +7,8 @@ import { NotFoundComponent } from './Components/not-found/not-found.component';
 import { OrderMasterComponent } from './Components/order-master/order-master.component';
 import { ProductDetailsComponent } from './Components/product-details/product-details.component';
 import { ProductsComponent } from './Components/products/products.component';
+import { UserRegisterComponent } from './Components/user-register/user-register.component';
+import { UserAuthGuard } from './Guards/user-auth.guard';
 
 const routes: Routes = [
   // First-match wins strategy
@@ -16,10 +18,15 @@ const routes: Routes = [
     {path:'Home', component:HomeComponent},
     {path:'Products', component:ProductsComponent},
     {path:'Products/:pid', component:ProductDetailsComponent},
-    {path:'NewProduct', component:AddProductComponent},
+    {path:'NewProduct', component:AddProductComponent, canActivate:[UserAuthGuard]},
     {path:'EditProduct/:pID', component:AddProductComponent},
     {path:'Order', component:OrderMasterComponent},
   ]},
+  {path: 'Register', component:UserRegisterComponent},
+  {
+    path: 'User',
+    loadChildren: () => import('src/app/Components/user/user.module').then(m => m.UserModule)
+  },
   //Wild-card path
   {path:'**', component:NotFoundComponent}
 ];
